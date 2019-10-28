@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using StudentDataAccess;
+using System;
 using System.Linq;
-using System.Web;
 
 namespace CSAspRestApi1.Models
 {
@@ -12,16 +11,33 @@ namespace CSAspRestApi1.Models
         {
             Student s = null;
 
-            using (var ctx = new StudentContext())
+            using (StudentContext ctx = new StudentContext())
             {
                 try
                 {
-                    var query = ctx.Students
-                                    .Where(ss => ss.id == id)
-                                    .FirstOrDefault<Student>();
+                    var query = ctx.Students.FirstOrDefault(ss => ss.id == id);
 
                     s = query;
                 } catch (Exception _exception)
+                {
+                    Console.WriteLine(_exception.StackTrace);
+                }
+            }
+            return s;
+        }
+       public static Students findFirstById2(Int32 id)
+        {
+            Students s = null;
+
+            using (StudentDbEntities _entities = new StudentDbEntities())
+            {
+                try
+                {
+                    var query = _entities.Students.FirstOrDefault(ss => ss.id == id);
+
+                    s = query;
+                }
+                catch (Exception _exception)
                 {
                     Console.WriteLine(_exception.StackTrace);
                 }
@@ -49,8 +65,7 @@ namespace CSAspRestApi1.Models
             using (var ctx = new StudentContext())
             {
                 var query = ctx.Students
-                                .Where(ss => ss.age == age)
-                                .FirstOrDefault<Student>();
+                                .FirstOrDefault(ss => ss.age == age);
 
                 s = query;
             }

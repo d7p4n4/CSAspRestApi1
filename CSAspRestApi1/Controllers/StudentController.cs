@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using StudentDataAccess;
 
 namespace CSAspRestApi1.Controllers
 {
@@ -19,28 +20,22 @@ namespace CSAspRestApi1.Controllers
             new User { id = 5, name = "Cairon Reynolds", email = "email5@mail.com", phone = "01111111", role = 3}
         };
 
-        public ResponseModel Get()
+        /*public IEnumerable<StudentDataAccess.Student> Get()
         {
-            ResponseModel _objResponseModel = new ResponseModel();
-
-            _objResponseModel.Data = users;
-            _objResponseModel.Status = true;
-            _objResponseModel.Message = "Data Received successfully";
-
-            return _objResponseModel;
-        }
+            using (StudentDbEntities _entities = new StudentDbEntities())
+            {
+                return _entities.Students.ToList();
+            }
+        }*/
 
         public ResponseModel Get(int id)
         {
             ResponseModel _objResponseModel = new ResponseModel();
 
-            StudentPreProcessed _student = new StudentPreProcessed();
-            _student = StudentEntityMethods.findFirstById(id);
-
-                    _objResponseModel.Data = _student;
-                    _objResponseModel.Status = true;
-                    _objResponseModel.Message = "Data Received successfully";
-                
+            _objResponseModel.Data = StEntityMethods.findFirstById(id);
+            _objResponseModel.Status = true;
+            _objResponseModel.Message = "Data Received successfully";
+            
             return _objResponseModel;
         }
     }
