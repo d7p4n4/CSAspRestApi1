@@ -11,24 +11,8 @@ namespace CSAspRestApi1.Controllers
 {
     public class StudentController : ApiController
     {
-        private User[] users = new User[]
-        {
-            new User { id = 1, name = "Haleemah Redfern", email = "email1@mail.com", phone = "01111111", role = 1},
-            new User { id = 2, name = "Aya Bostock", email = "email2@mail.com", phone = "01111111", role = 1},
-            new User { id = 3, name = "Sohail Perez", email = "email3@mail.com", phone = "01111111", role = 1},
-            new User { id = 4, name = "Merryn Peck", email = "email4@mail.com", phone = "01111111", role = 2},
-            new User { id = 5, name = "Cairon Reynolds", email = "email5@mail.com", phone = "01111111", role = 3}
-        };
 
-        /*public IEnumerable<StudentDataAccess.Student> Get()
-        {
-            using (StudentDbEntities _entities = new StudentDbEntities())
-            {
-                return _entities.Students.ToList();
-            }
-        }*/
-
-        public ResponseModel Get(int id)
+        public ResponseModel GetById(int id)
         {
             ResponseModel _objResponseModel = new ResponseModel();
 
@@ -37,6 +21,40 @@ namespace CSAspRestApi1.Controllers
             _objResponseModel.Message = "Data Received successfully";
             
             return _objResponseModel;
+        }
+
+        public ResponseModel GetByName(string id)
+        {
+            ResponseModel _objResponseModel = new ResponseModel();
+
+            _objResponseModel.Data = StEntityMethods.findFirstByName(id);
+            _objResponseModel.Status = true;
+            _objResponseModel.Message = "Data Received successfully";
+
+            return _objResponseModel;
+        }
+
+        public ResponseModel GetListByAge(int id)
+        {
+            ResponseModel _objResponseModel = new ResponseModel();
+            List<Students> _studentList = StEntityMethods.findListByAge(id);
+
+            _objResponseModel.Data = _studentList;
+            _objResponseModel.Status = true;
+            _objResponseModel.Message = "Data Received successfully";
+
+            return _objResponseModel;
+
+        }
+
+        public void Post(Students student)
+        {
+            StEntityMethods.addNewStudent(student);
+        }
+
+        public void Delete(int id)
+        {
+            StEntityMethods.deleteById(id);
         }
     }
 }

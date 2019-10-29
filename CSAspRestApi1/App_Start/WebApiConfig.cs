@@ -17,8 +17,14 @@ namespace CSAspRestApi1
 
             config.Routes.MapHttpRoute(
                 name: "ControllerApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "ControllerName",
+                routeTemplate: "api/{controller}/{action}/{name}",
+                defaults: new { name = RouteParameter.Optional }
             );
 
             config.Formatters.JsonFormatter.SupportedMediaTypes
