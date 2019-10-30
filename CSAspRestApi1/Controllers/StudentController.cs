@@ -56,5 +56,12 @@ namespace CSAspRestApi1.Controllers
         {
             StEntityMethods.deleteById(id);
         }
+
+        public void Update(Students _student)
+        {
+            StEntityMethods _entityMethods = new StEntityMethods();
+
+            _entityMethods.updateStudent(_student);
+        }
     }
 }
